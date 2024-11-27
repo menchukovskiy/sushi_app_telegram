@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from "react-router-dom"
 import { orange, grey } from '@mui/material/colors';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const BottomNavBar = () => {
     const [value, setValue] = useState(0);
@@ -33,6 +34,7 @@ const BottomNavBar = () => {
                 }}
             >
                 <BottomNavigationAction component={Link} to="/"  icon={<StorefrontIcon />} />
+                <BottomNavigationAction component={Link} to="/favorite"  icon={<FavoriteIcon />} />
                 <BottomNavigationAction component={Link} to="/cart"  icon={<ShoppingCartIcon />} />
                 <BottomNavigationAction component={Link} to="/account"  icon={<AccountCircleIcon />} />
             </BottomNavigation>

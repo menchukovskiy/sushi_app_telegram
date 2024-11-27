@@ -5,7 +5,10 @@
     --padding: 16px;
     --color-dark: #222427;
     --color-font: #fff;
-    --navbar-height:56px
+    --color-black: #1e1e1e;
+    --navbar-height:56px;
+    --radius: 11px;
+    --margin: 20px;
   }
   
   body {
@@ -28,6 +31,27 @@
     color: var(--tg-theme-text-color) ;
   }
 
+  #root {
+    height: 100vh;
+  }
+
   .wrap {
+    padding: var(--padding) var(--padding) 90px var(--padding);
+  }
+
+  .iconBoxBtn {
+    background-color: var(--color-black);
     padding: var(--padding);
+    border-radius: var(--radius);
+    width: calc( ( 100vw - (var(--padding) * 2) - (var(--margin) * 2) ) / 3 );
+    margin-bottom: var(--margin);
+    margin-right: var(--margin);
+  }
+
+  .iconBoxBtn:nth-child(3n) {
+    margin-right: 0;
+  }
+
+  .iconBoxBtn p {
+    margin-top: 10px;
   }
