@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --padding: 16px;
+    --color-dark: #222427;
+    --color-font: #fff;
+    --navbar-height:56px
+  }
+  
+  body {
+    background-color: var(--color-dark);
+    color: var(--color-font);
+  }
+
+  .bottomNavBar {
+    height: var(--navbar-height);
+    border-radius: var(--navbar-height);
+    position: fixed;
+    bottom: 34px;
+    left: 16px;
+    right: 16px;
+    background-color: #151414;
+  }
+
+  .bottomNav {
+    background: var(--tg-theme-bg-color) !important;
+    color: var(--tg-theme-text-color) ;
+  }
+
+  .wrap {
+    padding: var(--padding);
+  }
