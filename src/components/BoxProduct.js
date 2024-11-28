@@ -22,7 +22,7 @@ const BoxProduct = (props) => {
 
             <Box className="productBox_bottom" display="flex" justifyContent="space-between" alignItems="center">
                 <Box className="price">{props.price} грн</Box>
-                <IconButton className="addCart" size="large">
+                <IconButton onClick={props.onClick} className="addCart" size="large">
                     <AddShoppingCartIcon />
                 </IconButton>
             </Box>

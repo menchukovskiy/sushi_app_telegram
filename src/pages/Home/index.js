@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategoty, getData } from '../../store/slice/productSlice'
+import { getData } from '../../store/slice/productSlice'
 import ButtonIconSvg from '../../components/ButtonIconSvg';
 import { orange } from '@mui/material/colors';
 import { Box, Typography } from '@mui/material';
@@ -10,8 +10,7 @@ const Home = () => {
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.product)
-
-    console.log(store)
+    
 
     useEffect(() => {
         if (store.status !== 'load') {

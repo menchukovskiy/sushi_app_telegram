@@ -3,14 +3,16 @@ import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from "react-router-dom"
 import { orange, grey } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import CartIcon from './CartIcon';
 
 const BottomNavBar = () => {
     const [value, setValue] = useState(0);
+    
+
     return (
         <Box className="bottomNavBar">
 
@@ -35,7 +37,7 @@ const BottomNavBar = () => {
             >
                 <BottomNavigationAction component={Link} to="/"  icon={<StorefrontIcon />} />
                 <BottomNavigationAction component={Link} to="/favorite"  icon={<FavoriteIcon />} />
-                <BottomNavigationAction component={Link} to="/cart"  icon={<ShoppingCartIcon />} />
+                <BottomNavigationAction component={Link} to="/cart"  icon={<CartIcon />} />
                 <BottomNavigationAction component={Link} to="/account"  icon={<AccountCircleIcon />} />
             </BottomNavigation>
 
