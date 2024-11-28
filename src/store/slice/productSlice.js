@@ -1,6 +1,6 @@
   
  import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
- import { getCategorys } from '../../http/storeAPI'
+ import { getCategorys, get_data } from '../../http/storeAPI'
 
 
 export const getAllCategoty =  createAsyncThunk(
@@ -15,13 +15,26 @@ export const getAllCategoty =  createAsyncThunk(
     }
 )
 
+export const getData =  createAsyncThunk(
+    'product/getData',
+    async function () {
+        try {
+            const data = await get_data()
+            return data
+        } catch (e) {
+            throw new Error(e.response.data.message)
+        }
+    }
+)
+
 
  const productSlice = createSlice({
     name: 'product',
     initialState: {
         status: null,
         error: null,
-        category: []
+        category: [],
+        products: []
         
     },
     reducers: {
@@ -35,6 +48,12 @@ export const getAllCategoty =  createAsyncThunk(
 
         .addCase(getAllCategoty.fulfilled, ( state, action ) => {
             state.category = action.payload
+            state.status = 'load'
+        })
+
+        .addCase(getData.fulfilled, ( state, action ) => {
+            state.category = action.payload.category
+            state.products = action.payload.products
             state.status = 'load'
         })
 

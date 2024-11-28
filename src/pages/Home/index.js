@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategoty } from '../../store/slice/productSlice'
+import { getAllCategoty, getData } from '../../store/slice/productSlice'
 import ButtonIconSvg from '../../components/ButtonIconSvg';
 import { orange } from '@mui/material/colors';
-import { Box } from '@mui/material';
-import { Link } from "react-router-dom"
+import { Box, Typography } from '@mui/material';
+
 
 const Home = () => {
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.product)
 
-    console.log(store.category)
+    console.log(store)
 
     useEffect(() => {
         if (store.status !== 'load') {
-            dispatch(getAllCategoty())
+            dispatch(getData())
         }
 
     }, [dispatch])
@@ -26,19 +26,24 @@ const Home = () => {
     return (
         <div >
 
-            <Box display="flex" flexWrap="wrap">
-                {
-                    store.category.map(cat =>
-                        <ButtonIconSvg
-                            id={cat.id}
-                            name={cat.icon}
-                            title={cat.name}
-                            size='40'
-                            color={orange['500']}
-                            key={cat.id} />
-                    )
-                }
+            <Box>
+                <Typography className='title' variant="h6" gutterBottom>Меню</Typography>
+                <Box display="flex" flexWrap="wrap">
+                    {
+                        store.category.map(cat =>
+                            <ButtonIconSvg
+                                id={cat.id}
+                                name={cat.icon}
+                                title={cat.name}
+                                size='40'
+                                color={orange['500']}
+                                key={cat.id} />
+                        )
+                    }
+                </Box>
             </Box>
+
+
 
         </div>
     );

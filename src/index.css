@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@400;700&family=Roboto:wght@400;500;700&family=Source+Code+Pro:ital@0;1&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +7,11 @@
     --padding: 16px;
     --color-dark: #222427;
     --color-font: #fff;
+    --color_orange: #ff973b;
     --color-black: #1e1e1e;
+    --color-text-grey: #8b8b8b;
+    --color-wheat: #fbebbb;
+    --color-cotton_hover: #bdb8a0;
     --navbar-height:56px;
     --radius: 11px;
     --margin: 20px;
@@ -14,6 +20,9 @@
   body {
     background-color: var(--color-dark);
     color: var(--color-font);
+    font-family: "Source Code Pro", serif;
+    font-size: 12px;
+    font-size: 1.1rem;
   }
 
   .bottomNavBar {
@@ -39,19 +48,72 @@
     padding: var(--padding) var(--padding) 90px var(--padding);
   }
 
-  .iconBoxBtn {
-    background-color: var(--color-black);
-    padding: var(--padding);
-    border-radius: var(--radius);
+  .iconBoxBtn {    
     width: calc( ( 100vw - (var(--padding) * 2) - (var(--margin) * 2) ) / 3 );
-    margin-bottom: var(--margin);
-    margin-right: var(--margin);
+
   }
 
-  .iconBoxBtn:nth-child(3n) {
+  .iconBoxBtn:nth-child(3n),
+  .productBox:nth-child(2n) {
     margin-right: 0;
   }
 
   .iconBoxBtn p {
     margin-top: 10px;
+  }
+
+  .title {
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    margin: 20px auto !important;
+  }
+
+  .addCart {
+    background-color: var(--color_orange) !important;
+  }
+
+  .iconBoxBtn,
+  .productBox {
+    background-color: var(--color-black);
+    padding: var(--padding);
+    border-radius: var(--radius);
+    margin-bottom: var(--margin);
+    margin-right: var(--margin);
+  }
+
+  .productBox {
+    overflow: hidden;
+    width: calc( ( 100vw - (var(--padding) * 2) - var(--margin) ) / 2 );
+  }
+
+  .productBox_cover {
+    overflow: hidden;
+  }
+
+  .productBox_cover img {
+    width: 100%;
+    height: auto;
+  }
+
+  .productBox_info {
+    font-size: .55rem;
+    color: var(--color-text-grey);
+  }
+
+  .productBox_name {
+    color: var(--color-wheat);
+  }
+
+  .productBox_about {
+    color: var(--color-cotton_hover);
+    font-size: .5rem;
+  }
+
+  .productBox_bottom {
+    margin-top: 10px;
+  }
+
+  .price {
+    font-size: 1rem !important;
   }
