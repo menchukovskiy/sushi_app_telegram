@@ -3,10 +3,11 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 const BoxProduct = (props) => {
     const src = "https://blackdniprosushi.dp.ua/images/" + props.cover
+    console.log(props.countCart)
     return (
         <Box className="productBox" display='flex' justifyContent="space-between" flexDirection='column'>
             <Box>
-                <Box className="productBox_cover">
+                <Box onClick={props.openInfo} className="productBox_cover">
                     <img src={src} />
                 </Box>
                 <Box>
@@ -21,7 +22,11 @@ const BoxProduct = (props) => {
             </Box>
 
             <Box className="productBox_bottom" display="flex" justifyContent="space-between" alignItems="center">
-                <Box className="price">{props.price} грн</Box>
+                <Box>
+                    <Box className="price">{props.price} грн</Box>
+                    {props.countCart !== undefined ? <span className="inCart">В кошику: {props.countCart.count}</span> : null}
+                </Box>
+
                 <IconButton onClick={props.onClick} className="addCart" size="large">
                     <AddShoppingCartIcon />
                 </IconButton>

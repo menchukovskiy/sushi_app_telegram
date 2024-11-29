@@ -1,8 +1,14 @@
 import { useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, AppBar, Toolbar } from '@mui/material';
 import BoxProduct from "../../components/BoxProduct";
 import { addCart } from '../../store/slice/cartSlice'
+import { useState } from "react";
+import InfoProductModal from "../../components/InfoProductModal";
+
+
+
+
 
 const Category = () => {
     const location = useLocation()
@@ -11,25 +17,74 @@ const Category = () => {
     const dispatch = useDispatch()
     const store = useSelector(state => state.product)
     const category = store.category.find(cat => cat.id == id)
-    const products = store.products.filter( data => data.category == id)
+    const products = store.products.filter(data => data.category == id)
+    const [open, setOpen] = useState(false)
     const cart = useSelector(state => state.cart.data)
 
-    const handleAddCart = ( id ) => {
-        
-        dispatch( addCart( id ) )
-        
+    const [dataInfoProduct, setDataInfoProduct] = useState({
+        cover: null,
+        id: null,
+        title: null,
+        info: null,
+        about: null,
+        price: null,
+        countCart: undefined
+    })
+
+
+    const handleAddCart = (id) => {
+        dispatch(addCart(id))
     }
 
-    console.log( cart )
+    const handleOpenModal = (data) => {
+        setDataInfoProduct({
+            cover: data.cover,
+            id: data.id,
+            title: data.title,
+            info: data.info,
+            about: data.about,
+            price: data.price,
+            countCart: data.countCart
+        })
+
+        setOpen(true)
+
+    }
+
+    const handleCloseModal = () => {
+        setDataInfoProduct({
+            cover: null,
+            id: null,
+            title: null,
+            info: null,
+            about: null,
+            ptice: null,
+            countCart: undefined
+        })
+        setOpen(false)
+    }
 
     return (
-        <div>
-             <Typography className='title' variant="h6" gutterBottom>{category.name}</Typography>
+        <div className="wrapForBar">
+            <AppBar className='header' position="fixed">
+                <Toolbar>
+                <Typography className='title' variant="h6" gutterBottom>{category.name}</Typography>
+                </Toolbar>
 
-             <Box display="flex" flexWrap='wrap' >
+            </AppBar>
+            <InfoProductModal
+                open={open}
+                dataInfoProduct={dataInfoProduct}
+                handleCloseModal={handleCloseModal}
+                onClick={ () => handleAddCart(dataInfoProduct.id)}
+            />
+
+            
+
+            <Box display="flex" flexWrap='wrap' >
                 {
-                    products.map( item => 
-                        <BoxProduct 
+                    products.map(item =>
+                        <BoxProduct
                             key={item.id}
                             cover={item.cover}
                             name={item.name}
@@ -37,11 +92,21 @@ const Category = () => {
                             count={item.count}
                             about={item.about}
                             price={item.price}
-                            onClick={ () => handleAddCart( item.id ) }
+                            onClick={() => handleAddCart(item.id)}
+                            openInfo={() => handleOpenModal({
+                                cover: item.cover,
+                                id: item.id,
+                                title: item.name,
+                                info: item.weight + ' г, ' + item.count,
+                                about: item.about,
+                                price: item.price,
+                                countCart: cart.find( cat => cat.id == item.id )
+                            })}
+                            countCart={ cart.find( cat => cat.id == item.id ) }
                         />
-                     )
+                    )
                 }
-             </Box>
+            </Box>
         </div>
     );
 };
