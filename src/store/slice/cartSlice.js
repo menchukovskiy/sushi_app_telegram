@@ -12,8 +12,16 @@
     },
     reducers: {
 
-        edit( state, action ){
-            
+        editCart( state, action ){
+            state.count -= 1
+            if( state.count <= 0 ){
+                state.count = 0
+            }
+            const idProduct = state.data.find( item => item.id == action.payload )
+            idProduct.count -= 1
+            if( idProduct.count <= 0 ){
+                state.data = state.data.filter(data => data.id !== action.payload);
+            }
         },
 
         addCart( state, action ) {
@@ -42,6 +50,6 @@
 
 });
 
-export const { edit, addCart } = cartSlice.actions;
+export const { editCart, addCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

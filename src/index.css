@@ -236,9 +236,22 @@
 
 .header  {
   background-color: var(--color-black) !important;
+  background-image: none !important;
 }
 
 .wrapForBar {
   padding-top: 80px;
+}
+
+.white {
+  fill: var(--color-cotton_hover) !important;
+}
+
+.cartCountText {
+  margin: 0 10px;
+}
+
+.formLine {
+  margin-bottom: 20px;
 }
  

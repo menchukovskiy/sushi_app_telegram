@@ -5,7 +5,7 @@ import BoxProduct from "../../components/BoxProduct";
 import { addCart } from '../../store/slice/cartSlice'
 import { useState } from "react";
 import InfoProductModal from "../../components/InfoProductModal";
-
+import TopBar from "../../components/TopBar";
 
 
 
@@ -66,12 +66,8 @@ const Category = () => {
 
     return (
         <div className="wrapForBar">
-            <AppBar className='header' position="fixed">
-                <Toolbar>
-                <Typography className='title' variant="h6" gutterBottom>{category.name}</Typography>
-                </Toolbar>
-
-            </AppBar>
+             <TopBar text={category.name} />
+            
             <InfoProductModal
                 open={open}
                 dataInfoProduct={dataInfoProduct}
