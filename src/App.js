@@ -1,16 +1,25 @@
 import React, { useEffect } from 'react'
 import BottomNavBar from './components/BottomNavBar';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import BotRouter from './router'
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    window.scrollBy(0, 0);
+  }, [pathname]);
+
+  return null
+}
 
 
 function App() {
   const tg = window.Telegram.WebApp;
 
   useEffect(() => {
-    //tg.expand()
-    //tg.ready();
+    tg.expand()
+    tg.ready();
   }, [tg])
 
 

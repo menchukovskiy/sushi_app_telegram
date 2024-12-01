@@ -26,18 +26,18 @@
   }
 
   .bottomNavBar {
-    height: var(--navbar-height);
-    border-radius: var(--navbar-height);
+    height: 56px;
+    border-radius: 56px !important;
     position: fixed;
     bottom: 34px;
     left: 16px;
     right: 16px;
     background-color: #151414;
+    overflow: hidden;
   }
 
   .bottomNav {
-    background: var(--tg-theme-bg-color) !important;
-    color: var(--tg-theme-text-color) ;
+    
   }
 
   #root {
@@ -146,6 +146,7 @@
   .infoProductModal .MuiPaper-root {
     background-color: var(--color-black);
     color: #fff;
+    background-image: none !important;
   }
 
   .infoProducModalContent {

@@ -18,22 +18,20 @@ const Offer = () => {
     const phone = useInput('', { isEmpty: true, minLength: 19 })
     const time = useInput('Найближчий', { isEmpty: true, maxLength: 120 })
     const address = useInput('',{isEmpty:true})
+    const code = useInput('')
+    const comment = useInput('')
 
     const checkDisable = useCallback( () => {
         if( phone.value.length < 19 || time.value.length < 2 || address.value.length < 10 ){
             return true
         }
         return false 
-    }, [phone.value, time.value] )
+    }, [phone.value, time.value, address.value] )
 
     return (
         <div className='wrapForBar'>
             <TopBar text="Оформлення замовлення" />
-            <Box>
-
-
-           
-
+            <Box sx={{marginTop:'10vh'}}>
                 <Box className="formLine" display="flex" justifyContent="space-between">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
@@ -78,6 +76,23 @@ const Offer = () => {
                     
                 </Box>
 
+                <Box className="formLine">
+                    <TextField
+                    value={code.value}
+                    onChange={ (e) => code.onChange(e) }
+                    onBlur={ (e) => code.onBlur( e ) }
+                    fullWidth label="Код знижки" variant="outlined"  /> 
+                </Box>
+
+                <Box className="formLine">
+                    <TextField 
+                        fullWidth 
+                        value={comment.value}
+                        onChange={ (e) => comment.onChange(e) }
+                        onBlur={ (e) => comment.onBlur( e ) }
+                        placeholder="Коментар до замовлення" 
+                    />
+                </Box>
 
             </Box>
 
