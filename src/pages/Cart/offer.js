@@ -8,16 +8,19 @@ import dayjs from 'dayjs';
 import { useCallback } from 'react';
 import InputMask from 'react-input-mask';
 import { useInput } from '../../utils/hooks';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const Offer = () => {
+
+    const dispatch = useDispatch()
+    const store = useSelector( state => state.customer )
 
     const today = dayjs(new Date())
     const [valueDate, setValueDate] = useState(today)
 
-    const phone = useInput('', { isEmpty: true, minLength: 19 })
+    const phone = useInput( store.data[0].phone , { isEmpty: true, minLength: 19 })
     const time = useInput('Найближчий', { isEmpty: true, maxLength: 120 })
-    const address = useInput('',{isEmpty:true})
+    const address = useInput( store.data[0].addres ,{isEmpty:true})
     const code = useInput('')
     const comment = useInput('')
 
@@ -27,6 +30,10 @@ const Offer = () => {
         }
         return false 
     }, [phone.value, time.value, address.value] )
+
+
+    
+    console.log(phone.value)
 
     return (
         <div className='wrapForBar'>
@@ -60,7 +67,7 @@ const Offer = () => {
                         onBlur={e => phone.onBlur(e)}
                         error={phone.getError()}
                         maskChar={null}
-                        mask="+38 (999)-999-99-99"
+                        mask="+38 (999) 999 99 99"
                     >
                         {(inputProps) => <TextField fullWidth label="Номер телефону" variant="outlined" {...inputProps} type="tel" />}
                     </InputMask>
