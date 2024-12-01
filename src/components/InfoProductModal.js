@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { AppBar, Box, Dialog, Toolbar, IconButton } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite } from '../store/slice/customerSlice'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -12,10 +13,34 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const InfoProductModal = (props) => {
     const srcImg = "https://blackdniprosushi.dp.ua/images/"
+
+
+    
+
     const handleAddCart = () => {
         props.onClick()
         props.handleCloseModal()
+        
     }
+
+
+    const dispatch = useDispatch()
+    
+
+    const handleFavorite = () => {
+        dispatch( addFavorite( [ props.dataInfoProduct.id, props.dataInfoProduct.user_id ] ) )
+        if( props.dataInfoProduct.favorite === '#7b7b7b' ){
+            props.dataInfoProduct.favorite = 'red'
+        } else {
+             props.dataInfoProduct.favorite = '#7b7b7b'
+        }
+        if(props.dataInfoProduct.fav !== undefined ){
+            props.handleCloseModal()
+        }
+    }
+
+    
+
     return (
         <Dialog
             className="infoProductModal"
@@ -35,7 +60,10 @@ const InfoProductModal = (props) => {
                         <IconButton
                             edge="start"
                             color="inherit"
-                            onClick={props.handleCloseModal}
+                            onClick={() => { 
+                                props.handleCloseModal()
+                               
+                             }}
                             aria-label="close"
                         >
                             <CloseIcon />
@@ -46,8 +74,10 @@ const InfoProductModal = (props) => {
             <Box className="infoProducModalContent">
                 <Box className="productBox_cover">
                     <img src={srcImg + props.dataInfoProduct.cover} />
+                    
                 </Box>
                 <Box p={2}>
+                   
                     <Box className="infoProducModalContent_title">
                         {props.dataInfoProduct.title}
                     </Box>
@@ -63,8 +93,12 @@ const InfoProductModal = (props) => {
                             {props.dataInfoProduct.countCart !== undefined ? <span className="inCart">В кошику: {props.dataInfoProduct.countCart.count}</span> : null}
                         </Box>
                         <Box>
-                            <IconButton onClick={() => {}} className="addFavorite" size="large">
-                                <FavoriteIcon />
+                            <IconButton
+                                onClick={handleFavorite}
+                                className="addFavorite"
+                                
+                                size="large">
+                                <FavoriteIcon sx={{fill: props.dataInfoProduct.favorite }} />
                             </IconButton>
                             <IconButton onClick={handleAddCart} className="addCart" size="large">
                                 <AddShoppingCartIcon />

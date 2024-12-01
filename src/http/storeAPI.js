@@ -28,3 +28,12 @@ export const get_customer = async ( $id ) => {
         return false
     }
 }
+
+export const add_favorite = async ( $id, $user_id ) => {
+    try {
+        const { data } = await $host.post('', { action: 'add_favorite', id: $id, user_id: $user_id })
+        return data
+    } catch (e) {
+        return false
+    }
+}

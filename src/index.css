@@ -186,7 +186,7 @@
 }
 
 .addFavorite {
-  background-color: var(--color-wheat) !important;
+  /*background-color: var(--color-wheat) !important;*/
   margin-right: 16px !important;
 }
 
