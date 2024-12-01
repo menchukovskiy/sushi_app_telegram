@@ -34,7 +34,7 @@ const Cart = () => {
                             const price = item.count * product.price
                             totalPrice += price
                             return (
-                                <Box display="flex" alignItems="center" justifyContent="space-between" className="rowCart">
+                                <Box key={product.id} display="flex" alignItems="center" justifyContent="space-between" className="rowCart">
                                     <Box className="rowCart_cover">
                                         <img src={'https://blackdniprosushi.dp.ua/images/' + product.cover} />
                                     </Box>

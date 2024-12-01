@@ -37,3 +37,43 @@ export const add_favorite = async ( $id, $user_id ) => {
         return false
     }
 }
+
+export const edit_customer = async ( $id, $name, $birthday, $phone ) => {
+    try {
+        const { data } = await $host.post('', { 
+            action: 'edit_customer', 
+            id: $id,  
+            name: $name, 
+            birthday: $birthday,
+            phone: $phone
+        })
+        return data
+    } catch (e) {
+        return false
+    }
+}
+
+export const edit_customer_address = async ( $id, $address ) => {
+    try {
+        const { data } = await $host.post('', { 
+            action: 'edit_customer_address', 
+            id: $id,  
+            address: $address, 
+        })
+        return data
+    } catch (e) {
+        return false
+    }
+}
+
+export const get_customer_orders = async ( $id ) => {
+    try {
+        const { data } = await $host.post('', { 
+            action: 'get_customer_orders', 
+            id: $id
+        })
+        return data
+    } catch (e) {
+        return false
+    }
+}

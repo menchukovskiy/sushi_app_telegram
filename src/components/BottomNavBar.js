@@ -12,7 +12,6 @@ import CartIcon from './CartIcon';
 const BottomNavBar = () => {
     const [value, setValue] = useState(0);
     
-
     return (
         <Box className="bottomNavBar">
 

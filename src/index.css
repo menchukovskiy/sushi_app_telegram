@@ -205,7 +205,8 @@
   height: auto;
 }
 
-.rowCart {
+.rowCart,
+.orders_row {
   background-color: var(--color-black);
   padding: 10px;
   border-radius: var(--radius);
@@ -256,3 +257,33 @@
   margin-bottom: 20px;
 }
  
+.listAccount_title {
+  font-size: 1.15rem !important;
+  margin-left: 15px !important;
+}
+
+.listAccount {
+  padding: 20px 0;
+  border-bottom: 1px solid #5d6269;
+}
+
+.emptyBox {
+  width: 1px;
+  height: 1px;
+}
+
+.success_message {
+  text-align: center;
+}
+
+.orders_row {
+
+}
+
+.orders_row_about {
+  width: 70%;
+}
+
+.orders_row_about {
+  font-size: .75rem;
+}

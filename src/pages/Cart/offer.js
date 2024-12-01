@@ -32,8 +32,6 @@ const Offer = () => {
     }, [phone.value, time.value, address.value] )
 
 
-    
-    console.log(phone.value)
 
     return (
         <div className='wrapForBar'>
@@ -106,7 +104,7 @@ const Offer = () => {
        
 
             <Box display="flex" justifyContent="center" alignItems="center" className="cartBoxBtn">
-                <Button disabled={checkDisable()}  variant="contained">Оформити замовлення</Button>
+                <Button disabled={checkDisable()} variant="contained">Оформити замовлення</Button>
             </Box>
         </div>
     );
