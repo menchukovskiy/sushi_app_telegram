@@ -18,7 +18,7 @@ const Home = () => {
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.product)
-    const [loading, setLoading] = useState(true)
+   
 
     const settings = {
         dots: true,
@@ -83,14 +83,14 @@ const Home = () => {
     useEffect(() => {
         if (store.status !== 'load') {
             dispatch(getData()).then( () => {
-                setLoading(false)
+                
             } )
         }
 
     }, [dispatch])
 
 
-
+console.log(store.status)
 
     return (
         <div >
@@ -102,7 +102,7 @@ const Home = () => {
             />
 
             {
-                loading ? <SkeletonHome /> :
+                 store.status !== 'load' ? <SkeletonHome /> :
 
                     <Box>
                         <Slider className='sliderWrap' {...settings}>
