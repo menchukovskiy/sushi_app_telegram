@@ -11,6 +11,8 @@ import { useInput } from '../../utils/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectTimeDelivery from '../../components/SelectTimeDelivery';
 import { finishOrder } from '../../store/slice/cartSlice'
+import Loading from '../../components/Loading';
+import FinishOrderModal from '../../components/FinishOrderModal';
 
 const Offer = () => {
 
@@ -19,7 +21,8 @@ const Offer = () => {
     const dispatch = useDispatch()
     const store = useSelector(state => state.customer)
     const cart = useSelector(state => state.cart)
-
+    const [load, setLoad] = useState( false )
+    const [finModal, setFinModal] = useState( false )
     const today = dayjs(new Date())
     const [valueDate, setValueDate] = useState(today)
 
@@ -45,6 +48,9 @@ const Offer = () => {
     }
 
     const handleBuy = () => {
+
+        setLoad(true)
+        
         
         const formData = new FormData()
 
@@ -59,12 +65,20 @@ const Offer = () => {
         formData.append( 'paymentMethod',  paymentMethod.value )
         formData.append( 'cartData', JSON.stringify( cart.data ) )
         
-        dispatch( finishOrder( [ formData ] ) )
+        dispatch( finishOrder( [ formData ] ) ).then( () => {
+            setLoad(false)
+            setFinModal(true)
+            } )
+        
     }
 
 
     return (
         <div className='wrapForBar'>
+            {
+                load ? <Loading /> : null
+            }
+            <FinishOrderModal open={finModal} />
             <TopBar text="Оформлення замовлення" />
             <Box sx={{ marginTop: '10vh' }}>
                 <Box className="formLine" display="flex" justifyContent="space-between">

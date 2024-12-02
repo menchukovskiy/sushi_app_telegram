@@ -6,7 +6,6 @@ import { useNavigate  } from 'react-router-dom'
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import PercentIcon from '@mui/icons-material/Percent';
 

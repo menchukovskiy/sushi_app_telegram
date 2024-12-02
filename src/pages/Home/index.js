@@ -8,12 +8,17 @@ import InfoProductModal from "../../components/InfoProductModal";
 import Slider from "react-slick";
 import BoxProduct from "../../components/BoxProduct";
 import { addCart } from '../../store/slice/cartSlice'
+import SkeletonHome from '../../components/SkeletonHome';
+
+
+
 
 const Home = () => {
 
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.product)
+    const [loading, setLoading] = useState(true)
 
     const settings = {
         dots: true,
@@ -76,10 +81,10 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-
-
         if (store.status !== 'load') {
-            dispatch(getData())
+            dispatch(getData()).then( () => {
+                setLoading(false)
+            } )
         }
 
     }, [dispatch])
@@ -96,80 +101,80 @@ const Home = () => {
                 onClick={() => handleAddCart(dataInfoProduct.id)}
             />
 
-            <Box>
+            {
+                loading ? <SkeletonHome /> :
+
+                    <Box>
+                        <Slider className='sliderWrap' {...settings}>
+                            {
+                                store.banner.map(item => {
+                                    const src = 'https://blackdniprosushi.dp.ua/asset/img/' + item.src
+                                    return (
+                                        <div className='sliderBox'>
+                                            <img src={src} />
+                                        </div>
+                                    )
+                                }
+                                )
+                            }
 
 
+                        </Slider>
 
-                <Slider className='sliderWrap' {...settings}>
-                    {
-                        store.banner.map(item => {
-                            const src = 'https://blackdniprosushi.dp.ua/asset/img/' + item.src
-                            return (
-                                <div className='sliderBox'>
-                                    <img src={src} />
-                                </div>
-                            )
-                        }
-                        )
-                    }
+                        <Typography className='title' variant="h6" gutterBottom>Меню</Typography>
+                        <Box display="flex" flexWrap="wrap">
+                            {
+                                store.category.map(cat =>
+                                    <ButtonIconSvg
+                                        id={cat.id}
+                                        name={cat.icon}
+                                        title={cat.name}
+                                        size='40'
+                                        color={orange['500']}
+                                        key={cat.id} />
+                                )
+                            }
+                        </Box>
 
+                        <Typography className='title' variant="h6" gutterBottom>Популярні</Typography>
 
-                </Slider>
+                        <Box display="flex" flexWrap='wrap'>
+                            {
+                                store.top.map(item => {
+                                    return (
+                                        <BoxProduct
+                                            key={item.id}
+                                            cover={item.cover}
+                                            name={item.name}
+                                            weight={item.weight}
+                                            count={item.count}
+                                            about={item.about}
+                                            price={item.price}
+                                            onClick={() => handleAddCart(item.id)}
+                                            openInfo={() => handleOpenModal({
+                                                cover: item.cover,
+                                                id: item.id,
+                                                title: item.name,
+                                                info: item.weight + ' г, ' + item.count,
+                                                about: item.about,
+                                                price: item.price,
+                                                user_id: customer.data[0].user_id,
+                                                countCart: cart.find(cat => cat.id == item.id),
+                                                favorite: customer.favorite.find(pr => pr.product_id == item.id) !== undefined ? 'red' : '#7b7b7b'
+                                            })}
+                                            countCart={cart.find(cat => cat.id == item.id)}
+                                        />
+                                    )
 
-                <Typography className='title' variant="h6" gutterBottom>Меню</Typography>
-                <Box display="flex" flexWrap="wrap">
-                    {
-                        store.category.map(cat =>
-                            <ButtonIconSvg
-                                id={cat.id}
-                                name={cat.icon}
-                                title={cat.name}
-                                size='40'
-                                color={orange['500']}
-                                key={cat.id} />
-                        )
-                    }
-                </Box>
+                                }
 
-                <Typography className='title' variant="h6" gutterBottom>Популярні</Typography>
+                                )
+                            }
+                        </Box>
 
-                <Box display="flex" flexWrap='wrap'>
-                {
-                    store.top.map(item => {
-                        return (
-                            <BoxProduct
-                                key={item.id}
-                                cover={item.cover}
-                                name={item.name}
-                                weight={item.weight}
-                                count={item.count}
-                                about={item.about}
-                                price={item.price}
-                                onClick={() => handleAddCart(item.id)}
-                                openInfo={() => handleOpenModal({
-                                    cover: item.cover,
-                                    id: item.id,
-                                    title: item.name,
-                                    info: item.weight + ' г, ' + item.count,
-                                    about: item.about,
-                                    price: item.price,
-                                    user_id: customer.data[0].user_id,
-                                    countCart: cart.find(cat => cat.id == item.id),
-                                    favorite: customer.favorite.find(pr => pr.product_id == item.id) !== undefined ? 'red' : '#7b7b7b'
-                                })}
-                                countCart={cart.find(cat => cat.id == item.id)}
-                            />
-                        )
+                    </Box>
 
-                    }
-
-                    )
-                }
-                </Box>
-
-            </Box>
-
-
+            }
 
         </div>
     );

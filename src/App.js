@@ -19,22 +19,22 @@ function ScrollToTop() {
 function App() {
 
   //Разкоментить перед build
-  /*
+  
   const tg = window.Telegram.WebApp;
 
   useEffect(() => {
     tg.expand()
     tg.ready();
   }, [tg])
-*/
+
 
   const dispatch = useDispatch()
   const store = useSelector( state => state.customer )
 
   useEffect(() => {
     if (store.status !== 'load') {
-      //dispatch(getData( tg.initDataUnsafe.user.id  ))
-      dispatch(getData( 315099834  ))
+      dispatch(getData( tg.initDataUnsafe.user.id  ))
+      //dispatch(getData( 315099834  ))
   }
   }, [dispatch])
 

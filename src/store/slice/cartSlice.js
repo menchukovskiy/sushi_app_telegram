@@ -8,7 +8,7 @@
     async function ( [ $formData ], {rejectWithValue, dispatch} ) {
         try {
             const data = await finish_order( $formData )
-            //dispatch(clearCart())
+            dispatch(clearCart())
             return data
         } catch (e) {
             throw new Error(e.response.data.message)
