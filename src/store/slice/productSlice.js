@@ -34,7 +34,9 @@ export const getData =  createAsyncThunk(
         status: null,
         error: null,
         category: [],
-        products: []
+        products: [],
+        banner: [],
+        top: []
         
     },
     reducers: {
@@ -54,6 +56,8 @@ export const getData =  createAsyncThunk(
         .addCase(getData.fulfilled, ( state, action ) => {
             state.category = action.payload.category
             state.products = action.payload.products
+            state.banner = action.payload.banner
+            state.top = action.payload.top
             state.status = 'load'
         })
 

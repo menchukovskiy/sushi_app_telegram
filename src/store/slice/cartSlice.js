@@ -1,6 +1,22 @@
  
- import { createSlice } from '@reduxjs/toolkit';
- 
+ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+ import { finish_order } from '../../http/storeAPI'
+
+
+ export const finishOrder = createAsyncThunk(
+    'cart/finishOrder',
+    async function ( [ $formData ], {rejectWithValue, dispatch} ) {
+        try {
+            const data = await finish_order( $formData )
+            //dispatch(clearCart())
+            return data
+        } catch (e) {
+            throw new Error(e.response.data.message)
+        }
+            
+    }
+)
+
  const cartSlice = createSlice({
     name: 'cart',
     initialState: {
@@ -11,6 +27,11 @@
         
     },
     reducers: {
+
+        clearCart(state){
+            state.count = 0
+            state.data = []
+        },
 
         editCart( state, action ){
             state.count -= 1
@@ -44,12 +65,23 @@
             
             
         }
+    },
+    extraReducers: builder => {
+        builder
+
+        .addCase(finishOrder.fulfilled, ( state, action ) => {
+            
+            state.status = 'load'
+        })
+
+       
+        
     }
 
    
 
 });
 
-export const { editCart, addCart } = cartSlice.actions;
+export const { editCart, addCart, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

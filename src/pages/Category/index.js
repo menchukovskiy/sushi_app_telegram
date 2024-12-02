@@ -51,12 +51,7 @@ const Category = () => {
             user_id: data.user_id,
             favorite: data.favorite
         })
-
-        
-
         setOpen(true)
-        
-
     }
 
     const handleCloseModal = useCallback(() => {

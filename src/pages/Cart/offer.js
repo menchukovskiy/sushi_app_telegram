@@ -10,6 +10,7 @@ import InputMask from 'react-input-mask';
 import { useInput } from '../../utils/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectTimeDelivery from '../../components/SelectTimeDelivery';
+import { finishOrder } from '../../store/slice/cartSlice'
 
 const Offer = () => {
 
@@ -17,12 +18,14 @@ const Offer = () => {
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.customer)
+    const cart = useSelector(state => state.cart)
 
     const today = dayjs(new Date())
     const [valueDate, setValueDate] = useState(today)
 
     const phone = useInput(store.data[0].phone, { isEmpty: true, minLength: 19 })
-    const time = useInput('00:00')
+    
+    const [time, setTime] = useState('00:00')
     const address = useInput(store.data[0].addres, { isEmpty: true })
     
     const comment = useInput('')
@@ -31,12 +34,33 @@ const Offer = () => {
     const paymentMethod = useInput(0)
 
     const checkDisable = useCallback(() => {
-        if (phone.value.length < 19 || time.value.length < 2 || address.value.length < 10) {
+        if (phone.value.length < 19 || time === 0 || address.value.length < 10 ) {
             return true
         }
         return false
-    }, [phone.value, time.value, address.value])
+    }, [phone.value, time, address.value])
 
+    const handleTime = ( data ) => {
+        setTime( data )
+    }
+
+    const handleBuy = () => {
+        
+        const formData = new FormData()
+
+        formData.append( 'user_id', store.data[0].user_id )
+        formData.append( 'phone',  phone.value )
+        formData.append( 'address',  address.value )
+        formData.append( 'valueDate',  valueDate )
+        formData.append( 'time',  time )
+        formData.append( 'comment',  comment.value )
+        formData.append( 'appliances',  appliances.value )
+        formData.append( 'appliancesChild',  appliancesChild.value )
+        formData.append( 'paymentMethod',  paymentMethod.value )
+        formData.append( 'cartData', JSON.stringify( cart.data ) )
+        
+        dispatch( finishOrder( [ formData ] ) )
+    }
 
 
     return (
@@ -57,8 +81,8 @@ const Offer = () => {
                     </LocalizationProvider>
 
                     <SelectTimeDelivery 
-                        value={time.value}
-                        onChange={(e) => time.onChange(e)}
+                        value={time}
+                        onChange={(t) => handleTime(t)}
                         date={valueDate}
                     />
                     
@@ -165,7 +189,7 @@ const Offer = () => {
 
 
             <Box display="flex" justifyContent="center" alignItems="center" className="cartBoxBtn">
-                <Button disabled={checkDisable()} variant="contained">Оформити замовлення</Button>
+                <Button onClick={handleBuy} disabled={checkDisable()} variant="contained">Оформити замовлення</Button>
             </Box>
         </div>
     );

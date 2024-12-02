@@ -1,4 +1,4 @@
-import { $host } from './index'
+import { $host, $hostCart } from './index'
 
 
 export const getCategorys = async () => {
@@ -71,6 +71,27 @@ export const get_customer_orders = async ( $id ) => {
         const { data } = await $host.post('', { 
             action: 'get_customer_orders', 
             id: $id
+        })
+        return data
+    } catch (e) {
+        return false
+    }
+}
+
+export const finish_order =  async ( $formData ) => {
+    try {
+        const { data } = await $hostCart.post('', { 
+            action: 'finish_order', 
+            user_id: $formData.get('user_id'),
+            phone: $formData.get('phone'),
+            address: $formData.get('address'),
+            valueDate: $formData.get('valueDate'),
+            time: $formData.get('time'),
+            comment: $formData.get('comment'),
+            appliances: $formData.get('appliances'),
+            appliancesChild: $formData.get('appliancesChild'),
+            paymentMethod: $formData.get('paymentMethod'),
+            cartData: $formData.get('cartData'),
         })
         return data
     } catch (e) {

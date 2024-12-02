@@ -287,3 +287,28 @@
 .orders_row_about {
   font-size: .75rem;
 }
+
+.sliderBox {
+  background-color: var(--color-dark);
+    width: calc(100vw - 2 * var(--padding));
+    height: calc( ((calc(100vw - 2 * var(--padding))) * 9)/16  );
+    overflow: hidden;
+}
+
+.sliderBox img {
+  width: 100%;
+  height: inherit;
+}
+
+.sliderWrap {
+  margin-bottom: calc( var(--margin) * 2 );
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: .75;
+  color: var(--color_orange);
+}
+
+.slick-dots li button:before {
+  color: var(--color-cotton_hover);
+}
