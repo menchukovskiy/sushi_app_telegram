@@ -350,3 +350,27 @@
     bottom: 0;
     background-color: #222427d9;
 }
+
+.homeBadge {
+  position: relative;
+  height: 7vh;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid #ffa726;
+  margin: var(--margin) auto;
+}
+
+.homeBadge_content {
+  position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding:10px;
+}
+
+.homeBadge_content .wrapper {
+  width: 100%;
+  height: 100%;
+}

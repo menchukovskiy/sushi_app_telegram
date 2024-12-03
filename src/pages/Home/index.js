@@ -9,6 +9,8 @@ import Slider from "react-slick";
 import BoxProduct from "../../components/BoxProduct";
 import { addCart } from '../../store/slice/cartSlice'
 import SkeletonHome from '../../components/SkeletonHome';
+import HomeBadge from '../../components/HomeBadge';
+import MessFirs from '../../components/MessFirs';
 
 
 const Home = () => {
@@ -42,9 +44,9 @@ const Home = () => {
         favorite: false
     })
 
-    const [sale,setSale] = useState('0')
+    const [sale, setSale] = useState('0')
+    const [first, setFirst] = useState(false)
 
-    
 
 
     const handleAddCart = (id) => {
@@ -85,28 +87,30 @@ const Home = () => {
     useEffect(() => {
         if (store.status !== 'load') {
             dispatch(getData()).then(() => {
-                
+
             })
-        } 
-        
+        }
+
     }, [store.status])
 
-    useEffect( () => {
+    useEffect(() => {
         if (customer.status === 'load') {
-            if( customer.data[0].first_buy === '1' ){
+            if (customer.data[0].first_buy === '1') {
+                setFirst(true)
                 setSale(5)
-            } else if ( customer.data[0].sale !== '0' ){
+            } else if (customer.data[0].sale !== '0') {
                 setSale(customer.data[0].sale)
             }
-        } 
-       
-    },[customer.status] )
+        }
+
+    }, [customer.status])
 
 
 
 
     return (
         <div >
+
             <InfoProductModal
                 open={open}
                 dataInfoProduct={dataInfoProduct}
@@ -123,7 +127,7 @@ const Home = () => {
                                 store.banner.map(item => {
                                     const src = 'https://blackdniprosushi.dp.ua/asset/img/' + item.src
                                     return (
-                                        <div className='sliderBox'>
+                                        <div key={item.src} className='sliderBox'>
                                             <img src={src} />
                                         </div>
                                     )
@@ -133,6 +137,12 @@ const Home = () => {
 
 
                         </Slider>
+                        {
+                            first ?
+                                <HomeBadge content={<MessFirs />} />
+                                : null
+                        }
+
 
                         <Typography className='title' variant="h6" gutterBottom>Меню</Typography>
                         <Box display="flex" flexWrap="wrap">
