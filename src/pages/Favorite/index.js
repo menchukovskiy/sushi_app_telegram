@@ -3,7 +3,7 @@ import TopBar from '../../components/TopBar';
 import { useSelector, useDispatch } from 'react-redux';
 import { Box, Typography} from '@mui/material';
 import BoxProduct from "../../components/BoxProduct";
-import { useCallback, useState } from "react";
+import { useCallback, useState,useEffect } from "react";
 import { addCart } from '../../store/slice/cartSlice'
 import InfoProductModal from "../../components/InfoProductModal";
 
@@ -42,7 +42,8 @@ const Favorite = () => {
             countCart: data.countCart,
             user_id: data.user_id,
             favorite: data.favorite,
-            fav:true
+            fav:true,
+            sale: data.sale
         })
 
         setOpen(true)
@@ -62,6 +63,19 @@ const Favorite = () => {
         })
         setOpen(false)
     }, [])
+
+    const [sale,setSale] = useState('0')
+
+    useEffect( () => {
+        if (customer.status === 'load') {
+            if( customer.data[0].first_buy === '1' ){
+                setSale(5)
+            } else if ( customer.data[0].sale !== '0' ){
+                setSale(customer.data[0].sale)
+            }
+        } 
+       
+    },[customer.status] )
 
 
     return (
@@ -88,6 +102,7 @@ const Favorite = () => {
                                 count={product.count}
                                 about={product.about}
                                 price={product.price}
+                                sale={sale}
                                 onClick={() => handleAddCart(product.id)}
                                 openInfo={() => handleOpenModal({
                                     cover: product.cover,
@@ -96,6 +111,7 @@ const Favorite = () => {
                                     info: product.weight + ' г, ' + product.count,
                                     about: product.about,
                                     price: product.price,
+                                    sale: sale,
                                     user_id: customer.data[0].user_id,
                                     countCart: cart.find(cat => cat.id == product.id),
                                     favorite: customer.favorite.find(pr => pr.product_id == product.id) !== undefined ? 'red' : '#7b7b7b'

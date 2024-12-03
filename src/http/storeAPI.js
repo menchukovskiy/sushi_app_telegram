@@ -92,6 +92,7 @@ export const finish_order =  async ( $formData ) => {
             appliancesChild: $formData.get('appliancesChild'),
             paymentMethod: $formData.get('paymentMethod'),
             cartData: $formData.get('cartData'),
+            sale: $formData.get('sale')
         })
         return data
     } catch (e) {

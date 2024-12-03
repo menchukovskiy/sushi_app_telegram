@@ -11,14 +11,10 @@ import { addCart } from '../../store/slice/cartSlice'
 import SkeletonHome from '../../components/SkeletonHome';
 
 
-
-
 const Home = () => {
-
 
     const dispatch = useDispatch()
     const store = useSelector(state => state.product)
-   
 
     const settings = {
         dots: true,
@@ -46,6 +42,10 @@ const Home = () => {
         favorite: false
     })
 
+    const [sale,setSale] = useState('0')
+
+    
+
 
     const handleAddCart = (id) => {
         dispatch(addCart(id))
@@ -61,7 +61,8 @@ const Home = () => {
             price: data.price,
             countCart: data.countCart,
             user_id: data.user_id,
-            favorite: data.favorite
+            favorite: data.favorite,
+            sale: data.sale
         })
         setOpen(true)
     }
@@ -75,22 +76,34 @@ const Home = () => {
             about: null,
             price: null,
             countCart: undefined,
-            favorite: false
+            favorite: false,
+            sale: '0'
         })
         setOpen(false)
     }, [])
 
     useEffect(() => {
         if (store.status !== 'load') {
-            dispatch(getData()).then( () => {
+            dispatch(getData()).then(() => {
                 
-            } )
-        }
+            })
+        } 
+        
+    }, [store.status])
 
-    }, [dispatch])
+    useEffect( () => {
+        if (customer.status === 'load') {
+            if( customer.data[0].first_buy === '1' ){
+                setSale(5)
+            } else if ( customer.data[0].sale !== '0' ){
+                setSale(customer.data[0].sale)
+            }
+        } 
+       
+    },[customer.status] )
 
 
-console.log(store.status)
+
 
     return (
         <div >
@@ -102,7 +115,7 @@ console.log(store.status)
             />
 
             {
-                 store.status !== 'load' ? <SkeletonHome /> :
+                store.status !== 'load' ? <SkeletonHome /> :
 
                     <Box>
                         <Slider className='sliderWrap' {...settings}>
@@ -136,6 +149,51 @@ console.log(store.status)
                             }
                         </Box>
 
+                        {
+                            store.new.length ?
+                                <div>
+                                    <Typography className='title' variant="h6" gutterBottom>Нові страви</Typography>
+                                    <Box display="flex" flexWrap='wrap'>
+                                        {
+                                            store.new.map(item => {
+                                                return (
+                                                    <BoxProduct
+                                                        key={item.id}
+                                                        cover={item.cover}
+                                                        name={item.name}
+                                                        weight={item.weight}
+                                                        count={item.count}
+                                                        about={item.about}
+                                                        price={item.price}
+                                                        sale={sale}
+                                                        onClick={() => handleAddCart(item.id)}
+                                                        openInfo={() => handleOpenModal({
+                                                            cover: item.cover,
+                                                            id: item.id,
+                                                            title: item.name,
+                                                            info: item.weight + ' г, ' + item.count,
+                                                            about: item.about,
+                                                            price: item.price,
+                                                            user_id: customer.data[0].user_id,
+                                                            countCart: cart.find(cat => cat.id == item.id),
+                                                            sale: sale,
+                                                            favorite: customer.favorite.find(pr => pr.product_id == item.id) !== undefined ? 'red' : '#7b7b7b'
+                                                        })}
+                                                        countCart={cart.find(cat => cat.id == item.id)}
+                                                    />
+                                                )
+
+                                            }
+
+                                            )
+                                        }
+                                    </Box>
+                                </div>
+                                : null
+                        }
+
+
+
                         <Typography className='title' variant="h6" gutterBottom>Популярні</Typography>
 
                         <Box display="flex" flexWrap='wrap'>
@@ -150,6 +208,7 @@ console.log(store.status)
                                             count={item.count}
                                             about={item.about}
                                             price={item.price}
+                                            sale={sale}
                                             onClick={() => handleAddCart(item.id)}
                                             openInfo={() => handleOpenModal({
                                                 cover: item.cover,
@@ -160,6 +219,7 @@ console.log(store.status)
                                                 price: item.price,
                                                 user_id: customer.data[0].user_id,
                                                 countCart: cart.find(cat => cat.id == item.id),
+                                                sale: sale,
                                                 favorite: customer.favorite.find(pr => pr.product_id == item.id) !== undefined ? 'red' : '#7b7b7b'
                                             })}
                                             countCart={cart.find(cat => cat.id == item.id)}

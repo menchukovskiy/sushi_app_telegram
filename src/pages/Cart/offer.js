@@ -3,7 +3,7 @@ import { Box, TextField, Button, FormControl, Select, InputLabel, MenuItem } fro
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useCallback } from 'react';
 import InputMask from 'react-input-mask';
@@ -13,6 +13,7 @@ import SelectTimeDelivery from '../../components/SelectTimeDelivery';
 import { finishOrder } from '../../store/slice/cartSlice'
 import Loading from '../../components/Loading';
 import FinishOrderModal from '../../components/FinishOrderModal';
+import { getData } from '../../store/slice/customerSlice'
 
 const Offer = () => {
 
@@ -26,11 +27,12 @@ const Offer = () => {
     const today = dayjs(new Date())
     const [valueDate, setValueDate] = useState(today)
 
+
     const phone = useInput(store.data[0].phone, { isEmpty: true, minLength: 19 })
     
     const [time, setTime] = useState('00:00')
     const address = useInput(store.data[0].addres, { isEmpty: true })
-    
+    const [sale, setSale] = useState('0')
     const comment = useInput('')
     const appliances = useInput(1)
     const appliancesChild = useInput(0)
@@ -64,13 +66,29 @@ const Offer = () => {
         formData.append( 'appliancesChild',  appliancesChild.value )
         formData.append( 'paymentMethod',  paymentMethod.value )
         formData.append( 'cartData', JSON.stringify( cart.data ) )
+        formData.append( 'sale', sale )
         
         dispatch( finishOrder( [ formData ] ) ).then( () => {
+            dispatch( getData( store.data[0].user_id ))
             setLoad(false)
             setFinModal(true)
+            
             } )
         
     }
+
+    
+
+    useEffect(() => {
+        if (store.status === 'load') {
+            if (store.data[0].first_buy === '1') {
+                setSale(5)
+            } else if (store.data[0].sale !== '0') {
+                setSale(store.data[0].sale)
+            }
+        }
+
+    }, [store.status])
 
 
     return (

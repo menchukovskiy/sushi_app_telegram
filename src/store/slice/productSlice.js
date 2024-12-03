@@ -36,7 +36,8 @@ export const getData =  createAsyncThunk(
         category: [],
         products: [],
         banner: [],
-        top: []
+        top: [],
+        new: []
         
     },
     reducers: {
@@ -58,6 +59,7 @@ export const getData =  createAsyncThunk(
             state.products = action.payload.products
             state.banner = action.payload.banner
             state.top = action.payload.top
+            state.new = action.payload.new
             state.status = 'load'
         })
 

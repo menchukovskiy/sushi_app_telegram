@@ -25,6 +25,16 @@ const InfoProductModal = (props) => {
 
 
     const dispatch = useDispatch()
+
+    const [sale, setSale] = useState(0)
+
+    useEffect( () => {
+        if( props.dataInfoProduct.sale !== '0' ){
+            setSale(props.dataInfoProduct.sale)
+        } else {
+            setSale(0)
+        }
+    }, [props] )
     
 
     const handleFavorite = () => {
@@ -73,6 +83,11 @@ const InfoProductModal = (props) => {
             </AppBar>
             <Box className="infoProducModalContent">
                 <Box className="productBox_cover">
+                    {
+                        sale ? 
+                        <div className="sale">-{sale}%</div> 
+                        : null
+                    }
                     <img src={srcImg + props.dataInfoProduct.cover} />
                     
                 </Box>
@@ -89,7 +104,19 @@ const InfoProductModal = (props) => {
                     </Box>
                     <Box className="infoProducModalContent_price" display="flex" justifyContent="space-between" alignItems="center">
                         <Box>
-                            <Box className="priceModal">{props.dataInfoProduct.price} грн</Box>
+                            <Box className="priceModal">
+
+                            {
+                            sale ? 
+                            <Box>
+                                <div className="inPrice"> {props.dataInfoProduct.price} грн</div>
+                                <div className="salePrice"> { (props.dataInfoProduct.price - (props.dataInfoProduct.price * sale)/100)} грн</div>
+                            </Box>
+                            :
+                            props.dataInfoProduct.price + ' грн'
+                         }
+                        </Box>
+
                             {props.dataInfoProduct.countCart !== undefined ? <span className="inCart">В кошику: {props.dataInfoProduct.countCart.count}</span> : null}
                         </Box>
                         <Box>

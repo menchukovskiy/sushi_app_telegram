@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import BoxProduct from "../../components/BoxProduct";
 import { addCart } from '../../store/slice/cartSlice'
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import InfoProductModal from "../../components/InfoProductModal";
 import TopBar from "../../components/TopBar";
 
@@ -31,7 +31,8 @@ const Category = () => {
         about: null,
         price: null,
         countCart: undefined,
-        favorite: false
+        favorite: false,
+        
     })
 
 
@@ -49,7 +50,8 @@ const Category = () => {
             price: data.price,
             countCart: data.countCart,
             user_id: data.user_id,
-            favorite: data.favorite
+            favorite: data.favorite,
+            sale: data.sale
         })
         setOpen(true)
     }
@@ -63,11 +65,24 @@ const Category = () => {
             about: null,
             price: null,
             countCart: undefined,
-            favorite: false
+            favorite: false,
+            sale: '0'
         })
         setOpen(false)
     }, [])
 
+    const [sale,setSale] = useState('0')
+
+    useEffect( () => {
+        if (customer.status === 'load') {
+            if( customer.data[0].first_buy === '1' ){
+                setSale(5)
+            } else if ( customer.data[0].sale !== '0' ){
+                setSale(customer.data[0].sale)
+            }
+        } 
+       
+    },[customer.status] )
     
 
     return (
@@ -95,6 +110,7 @@ const Category = () => {
                                 count={item.count}
                                 about={item.about}
                                 price={item.price}
+                                sale={sale}
                                 onClick={() => handleAddCart(item.id)}
                                 openInfo={() => handleOpenModal({
                                     cover: item.cover,
@@ -104,6 +120,7 @@ const Category = () => {
                                     about: item.about,
                                     price: item.price,
                                     user_id: customer.data[0].user_id,
+                                    sale: sale,
                                     countCart: cart.find(cat => cat.id == item.id),
                                     favorite: customer.favorite.find(pr => pr.product_id == item.id) !== undefined ? 'red' : '#7b7b7b'
                                 })}

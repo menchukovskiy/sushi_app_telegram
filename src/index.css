@@ -89,6 +89,34 @@
 
   .productBox_cover {
     overflow: hidden;
+    position: relative;
+  }
+
+  .sale {
+    position: absolute;
+    padding: 5px 8px;
+    background-color: #cb2c2c;
+    font-size: .75rem;
+    line-height: 1;
+    top: 15px;
+    right: 0;
+  }
+
+  .infoProducModalContent .sale {
+    font-size: 1.4rem;
+    top: 30px;
+  }
+
+  
+
+  .inPrice {
+    font-size: .7rem;
+    text-decoration: line-through;
+    color: #ff4f4f;
+  }
+
+  .infoProducModalContent .inPrice {
+    font-size: 0.9rem;
   }
 
   .productBox_cover img {
