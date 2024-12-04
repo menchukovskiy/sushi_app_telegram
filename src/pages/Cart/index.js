@@ -48,7 +48,7 @@ const Cart = () => {
                             const product = products.find(pr => pr.id == item.id)
                             let price = item.count * product.price
                             let oldPrice = 0
-                            if (sale) {
+                            if ( sale !== '0' ) {
                                 oldPrice = price
                                 const saleData = (product.price * (sale / 100))
                                 price = item.count * (product.price - saleData)

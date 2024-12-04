@@ -34,7 +34,6 @@ function App() {
   useEffect(() => {
     if (store.status !== 'load') {
       dispatch(getData( tg.initDataUnsafe.user.id  ))
-      //dispatch( getData( 315099834 ))
   }
   }, [dispatch])
 
