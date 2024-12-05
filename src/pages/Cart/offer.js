@@ -111,7 +111,7 @@ const Offer = () => {
             }
             <FinishOrderModal open={finModal} />
             <TopBar text="Оформлення замовлення" />
-            <Box sx={{ marginTop: '10vh' }}>
+            <Box sx={{ marginTop: '5vh' }}>
                 <Box className="formLine" display="flex" justifyContent="space-between">
                     <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
                         <DatePicker
