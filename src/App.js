@@ -19,7 +19,7 @@ function ScrollToTop() {
 function App() {
 
   //Разкоментить перед build
-  
+/
   const tg = window.Telegram.WebApp;
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function App() {
   useEffect(() => {
     if (store.status !== 'load') {
       dispatch(getData( tg.initDataUnsafe.user.id  ))
+      
   }
   }, [dispatch])
 

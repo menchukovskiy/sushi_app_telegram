@@ -374,3 +374,36 @@
   width: 100%;
   height: 100%;
 }
+
+.saleProgress {
+  margin: var(--margin) auto;
+  text-align: center;
+}
+
+.saleProgress p {
+  margin-bottom: 10px;
+}
+
+.saleBoxData {
+  padding: 40px 0;
+}
+
+.subText ul {
+  list-style-position: inside;
+  padding-left: 10px;
+}
+
+.subText {
+  color: #a5a5a5;
+  margin-top: 30px;
+}
+
+.subText h6 {
+  text-align: center;
+}
+
+.subText p,
+.subText ul {
+  font-size: .7rem;
+  margin-top: 10px;
+}
