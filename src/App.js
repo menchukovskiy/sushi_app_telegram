@@ -19,7 +19,7 @@ function ScrollToTop() {
 function App() {
 
   //Разкоментить перед build
-/
+
   const tg = window.Telegram.WebApp;
 
   useEffect(() => {
