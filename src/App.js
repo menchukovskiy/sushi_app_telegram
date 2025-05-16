@@ -28,6 +28,9 @@ function App() {
   }, [tg])
 
 
+
+  
+
   const dispatch = useDispatch()
   const store = useSelector( state => state.customer )
   
@@ -35,10 +38,12 @@ function App() {
   useEffect(() => {
     if (store.status !== 'load') {
       dispatch(getData( tg.initDataUnsafe.user.id  ))
-     
       
   }
   }, [dispatch])
+
+
+ 
 
  
   

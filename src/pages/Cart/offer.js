@@ -111,7 +111,7 @@ const Offer = () => {
             }
             <FinishOrderModal open={finModal} />
             <TopBar text="Оформлення замовлення" />
-            <Box sx={{ marginTop: '5vh' }}>
+            <Box sx={{ paddingTop: '1vh', overflow: 'hidden' }}>
                 <Box className="formLine" display="flex" justifyContent="space-between">
                     <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
                         <DatePicker
@@ -177,7 +177,7 @@ const Offer = () => {
                 </Box>
                 {bonus ?
 
-                    <Box>
+                    <Box sx={{margin: '25px auto'}}>
                         <Box display='flex' alignItems='center'>
                             <TextField
                                 sx={{textAlign: 'center'}}
@@ -192,8 +192,9 @@ const Offer = () => {
                             </Box>
                         </Box>
 
-                        <Box>
+                        <Box display='flex' justifyContent='center'>
                             <Slider aria-label="Volume"
+                            sx={{width:'90%'}}
                                 value={useBonus}
                                 onChange={handleBonus}
                                 step={1}

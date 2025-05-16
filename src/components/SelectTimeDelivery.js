@@ -9,6 +9,9 @@ const SelectTimeDelivery = (props) => {
     const minTime = new Date().setHours(12, 30, 0, 0)
     const maxTime = new Date().setHours(20, 30, 0, 0)
 
+    console.log(selectDate)
+    console.log(today)
+
     useEffect(() => {
         if ((maxTime >= selectDate && selectDate > minTime) ||
             selectDate > today) {
@@ -30,8 +33,7 @@ const SelectTimeDelivery = (props) => {
             >
 
                 {
-                    (maxTime >= selectDate && selectDate > minTime) ||
-                        selectDate > today ?
+                    
                         arrayTime.map(item => {
                             const time = item.value.split(':')
                             const checkTime = new Date().setHours(time[0], time[1], 0, 0)
@@ -43,9 +45,7 @@ const SelectTimeDelivery = (props) => {
 
 
                         })
-                        :
-
-                        <MenuItem key={0} value={0}>Не працюємо</MenuItem>
+                        
 
                 }
 
